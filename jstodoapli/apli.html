@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>タスクアプリ</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- BootstrapのJS読み込み -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+     <link rel="stylesheet" href="./stylesheet2.css">
+</head>
+<body>
+  <div class="header">
+    <header>
+      <h1>Todolist</h1>
+    </header>
+  </div>
+  
+  <div class="taskForm">
+    <form name="myForm">
+      <div class="form-group">
+        <label for="formGroupExampleInput">用件名</label><br>
+        <input type="text" name="name" class="form-control" id="formGroupExampleInput" placeholder="仕事の名前">
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="formGroupExampleInput2">日付</label><br>
+        <input type="text" name="date" class="form-control" id="formGroupExampleInput2" placeholder="いつやるの？" >
+      </div>
+      <br>
+      <label>内容:</label><br>
+      <input class="form-control" name="content" type="text" placeholder="やることは？">
+    </form>
+  </div>
+  
+
+ <button id="btn" type="button" class="btn btn-primary">書き込む</button>
+  
+  <div id="console_log">
+    
+  </div>
+  
+  <div id=remove>
+    <button id="btn" type="button" class="btn btn-primary">reset</button>
+  </div>
+  
+   
+  <script>
+    const btn = document.getElementById('btn');
+    
+    btn.addEventListener('click', () => {
+        const form = document.forms.myForm;
+        console.log(form.name.value);
+        console.log(form.date.value);
+        console.log(form.content.value);
+        console.log('________________________________________');
+    });
+    
+    console.log = function (log) {
+    document.getElementById('console_log').innerHTML +='<p>'+log+'</p>';
+    }
+    // <br>じゃなくて<p>とかでつなげる。
+    
+    // jQueryでの削除機能の記述を調べました。生のjsだとよくわからず、かけませんでした・・・
+    $(function(){
+        $('#remove').click(function(){
+        // $('#console_log').empty();
+        for (let i = 0; i< 4;i++) {
+          let sakujo = $('#console_log').children();
+          sakujo.eq(-1).remove();
+        }
+      });
+    });
+ </script>
+</body>
+</html>
+
+<!--考え方：書き込まれる要素は、境目の線を含めて四つ。<div id="console_log">の、さらに子要素を取り出して、それを４回削除する-->
+<!--４回繰り返すのでfor文、子要素を取り出すのに、 let sakujo = $('#console_log').children();-->
+<!--そして、削除を「一番後ろの要素から行う」.eq(-1).remove();-->
+<!--eqはイコール、(-1)は、一番後ろの要素を指す。通常は、一番後ろの要素の数を設定するのだが、何回書き込まれるかわからないし、数が膨大になってきても設定に困る。-->
+<!--そういった際の、柔軟な設定として用いられる・・・はず-->
